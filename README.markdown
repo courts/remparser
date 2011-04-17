@@ -5,12 +5,12 @@ Author:      Patrick Hof <courts@offensivethinking.org>
 License:     [CC0 1.0 Universal License](http://creativecommons.org/publicdomain/zero/1.0/legalcode)
 
 Download:    git clone git@github.com:courts/remparser.git  
-YARD docs:   [http://courts.github.com/remparser](http://courts.github.com/remparser)
 
-remparser is a simple PEG parser written in Treetop to parse the output of
-['remind -s'](http://www.roaringpenguin.com/products/remind) into a data
-structure. The simple command line program rem2yaml.rb is provided to show its
-usage. rem2yaml parses remind's output given on STDIN in a YAML data structure.
+remparser is a simple PEG parser written in
+[Treetop](http://treetop.rubyforge.org/) to parse the output of ['remind
+-s'](http://www.roaringpenguin.com/products/remind) into a data structure. The
+simple command line program rem2yaml.rb is provided to show its usage. rem2yaml
+parses remind's output given on STDIN in a YAML data structure.
 
 rem2yaml.rb Command Line Usage
 ---------------------------

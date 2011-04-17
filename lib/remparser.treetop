@@ -1,0 +1,113 @@
+require "date"
+
+# Simple parser for the output of 'remind -s'.
+#
+# This software is licensed under the Creative
+# Commons CC0 1.0 Universal License.
+# To view a copy of this license, visit
+# http://creativecommons.org/publicdomain/zero/1.0/legalcode
+#
+# @author Patrick Hof
+
+grammar Remind
+
+  rule remline
+    date space special space tag space dur space time space body {
+    def content
+        elements.map {|e| e.content}.reject {|e| e =~ /\s/}
+      end
+      def content_hash
+        a = elements.map {|e| e.content}.reject {|e| e =~ /\s/}
+        h = {}
+        a.each do |e|
+          h[e[0]] = e[1]
+        end
+        h
+      end
+    }
+  end
+
+  rule date
+    [0-9] 4..4 '/' [0-9] 1..2 '/' [0-9] 1..2 {
+      def content
+        [:date, Date.parse(text_value)]
+      end
+    }
+  end
+
+  rule special
+   ('*' / [a-zA-Z]+) {
+      def content
+        [:special, text_value]
+      end
+   }
+  end
+
+  rule tag
+   ('*' / [a-zA-Z,]+) {
+      def content
+        [:tag, text_value]
+      end
+   }
+  end
+
+  rule dur
+    ('*' / [0-9]+) {
+      def content
+        [:dur, text_value.to_i]
+      end
+    }
+  end
+
+  rule time
+    ('*' / [0-9]+) {
+      def content
+        [:time, text_value.to_i]
+      end
+    }
+  end
+
+  rule body
+    bodytime 0..1 space 0..1 string {
+      def content
+        btime = {}
+        btime[:text] = elements[2].content.chomp
+        if elements[0].elements.length > 0
+          btime[:time] = elements[0].elements[0].content
+        end
+        [:body, btime]
+      end
+    }
+  end
+
+  rule bodytime
+    hours '-' hours ('am' / 'pm') {
+      def content
+        {:start => elements[0].text_value,
+         :end => elements[2].text_value,
+         :tod => elements[3].text_value}
+      end
+    }
+  end
+
+  rule hours
+    [0-9] 1..2 ':' [0-9] 2..2
+  end
+
+  rule space
+    [ \t]* {
+      def content
+        text_value
+      end
+    }
+  end
+
+  rule string
+    .* {
+      def content
+        text_value
+      end
+    }
+  end
+
+end

@@ -1,0 +1,6 @@
+TODO
+====
+
+- Add support for remind -p
+- check bodytime against duration
+- Allow parsing more than one line

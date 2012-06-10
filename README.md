@@ -4,7 +4,7 @@ remparser
 Author:      Patrick Hof <courts@offensivethinking.org>  
 License:     [CC0 1.0 Universal License](http://creativecommons.org/publicdomain/zero/1.0/legalcode)
 
-Download:    git clone git@github.com:courts/remparser.git  
+Download:    git clone http://github.com/courts/remparser.git  
 
 remparser is a simple PEG parser written in
 [Treetop](http://treetop.rubyforge.org/) to parse the output of ['remind
